@@ -1,103 +1,123 @@
 #include <gtest/gtest.h>
 #include "StringUtils.h"
 
+
 TEST(StringUtilsTest, Slice) {
-    EXPECT_EQ(StringUtils::Slice("hello world", 0, 5), "hello");
-    EXPECT_EQ(StringUtils::Slice("hello world", -5), "world");
-    EXPECT_EQ(StringUtils::Slice("hello world", 2, -3), "llo wo");
-    EXPECT_EQ(StringUtils::Slice("hello world", 0, 0), "hello world");
+   ASSERT_EQ(StringUtils::Slice("example text", 2, 7), "ample");
+   ASSERT_EQ(StringUtils::Slice("example text", -4), "text");
+   ASSERT_EQ(StringUtils::Slice("example text", 3, -2), "mple te");
+   ASSERT_EQ(StringUtils::Slice("example text", 0, 0), "example text");
 }
+
 
 TEST(StringUtilsTest, Capitalize) {
-    EXPECT_EQ(StringUtils::Capitalize("hello"), "Hello");
-    EXPECT_EQ(StringUtils::Capitalize("hELLO"), "HELLO");
-    EXPECT_EQ(StringUtils::Capitalize(""), "");
+   ASSERT_EQ(StringUtils::Capitalize("test string"), "Test string");
+   ASSERT_EQ(StringUtils::Capitalize("tEST sTRING"), "Test string");
+   ASSERT_EQ(StringUtils::Capitalize(""), "");
 }
+
 
 TEST(StringUtilsTest, Upper) {
-    EXPECT_EQ(StringUtils::Upper("hello"), "HELLO");
-    EXPECT_EQ(StringUtils::Upper("HeLLo"), "HELLO");
-    EXPECT_EQ(StringUtils::Upper(""), "");
+   ASSERT_EQ(StringUtils::Upper("test string"), "TEST STRING");
+   ASSERT_EQ(StringUtils::Upper("tEST sTRING"), "TEST STRING");
+   ASSERT_EQ(StringUtils::Upper(""), "");
 }
+
 
 TEST(StringUtilsTest, Lower) {
-    EXPECT_EQ(StringUtils::Lower("HELLO"), "hello");
-    EXPECT_EQ(StringUtils::Lower("HeLLo"), "hello");
-    EXPECT_EQ(StringUtils::Lower(""), "");
+   ASSERT_EQ(StringUtils::Lower("TEST STRING"), "test string");
+   ASSERT_EQ(StringUtils::Lower("tEST sTRING"), "test string");
+   ASSERT_EQ(StringUtils::Lower(""), "");
 }
+
 
 TEST(StringUtilsTest, LStrip) {
-    EXPECT_EQ(StringUtils::LStrip("   hello"), "hello");
-    EXPECT_EQ(StringUtils::LStrip("hello   "), "hello   ");
-    EXPECT_EQ(StringUtils::LStrip("   hello   "), "hello   ");
-    EXPECT_EQ(StringUtils::LStrip(""), "");
+   ASSERT_EQ(StringUtils::LStrip("   test string"), "test string");
+   ASSERT_EQ(StringUtils::LStrip("test string   "), "test string   ");
+   ASSERT_EQ(StringUtils::LStrip("   test string   "), "test string   ");
+   ASSERT_EQ(StringUtils::LStrip(""), "");
 }
+
 
 TEST(StringUtilsTest, RStrip) {
-    EXPECT_EQ(StringUtils::RStrip("hello   "), "hello");
-    EXPECT_EQ(StringUtils::RStrip("   hello"), "   hello");
-    EXPECT_EQ(StringUtils::RStrip("   hello   "), "   hello");
-    EXPECT_EQ(StringUtils::RStrip(""), "");
+   ASSERT_EQ(StringUtils::RStrip("test string   "), "test string");
+   ASSERT_EQ(StringUtils::RStrip("   test string"), "   test string");
+   ASSERT_EQ(StringUtils::RStrip("   test string   "), "   test string");
+   ASSERT_EQ(StringUtils::RStrip(""), "");
 }
+
 
 TEST(StringUtilsTest, Strip) {
-    EXPECT_EQ(StringUtils::Strip("   hello   "), "hello");
-    EXPECT_EQ(StringUtils::Strip("hello"), "hello");
-    EXPECT_EQ(StringUtils::Strip("   "), "");
-    EXPECT_EQ(StringUtils::Strip(""), "");
+   ASSERT_EQ(StringUtils::Strip("   test string   "), "test string");
+   ASSERT_EQ(StringUtils::Strip("test string"), "test string");
+   ASSERT_EQ(StringUtils::Strip("   "), "");
+   ASSERT_EQ(StringUtils::Strip(""), "");
 }
+
 
 TEST(StringUtilsTest, Center) {
-    EXPECT_EQ(StringUtils::Center("hello", 10, '*'), "**hello***");
-    EXPECT_EQ(StringUtils::Center("hello", 5, '-'), "hello");
-    EXPECT_EQ(StringUtils::Center("hello", 7, '_'), "_hello_");
+   ASSERT_EQ(StringUtils::Center("test", 10, '*'), "***test***");
+   ASSERT_EQ(StringUtils::Center("test", 4, '-'), "test");
+   ASSERT_EQ(StringUtils::Center("test", 8, '_'), "__test__");
 }
+
 
 TEST(StringUtilsTest, LJust) {
-    EXPECT_EQ(StringUtils::LJust("hello", 10, '*'), "hello*****");
-    EXPECT_EQ(StringUtils::LJust("hello", 5, '-'), "hello");
-    EXPECT_EQ(StringUtils::LJust("hello", 7, '_'), "hello__");
+   ASSERT_EQ(StringUtils::LJust("test", 10, '*'), "test******");
+   ASSERT_EQ(StringUtils::LJust("test", 4, '-'), "test");
+   ASSERT_EQ(StringUtils::LJust("test", 6, '_'), "test__");
 }
+
 
 TEST(StringUtilsTest, RJust) {
-    EXPECT_EQ(StringUtils::RJust("hello", 10, '*'), "*****hello");
-    EXPECT_EQ(StringUtils::RJust("hello", 5, '-'), "hello");
-    EXPECT_EQ(StringUtils::RJust("hello", 7, '_'), "__hello");
+   // Test padding with asterisks
+   ASSERT_EQ(StringUtils::RJust("test", 10, '*'), "******test");
+   ASSERT_EQ(StringUtils::RJust("test", 4, '-'), "test");
+   ASSERT_EQ(StringUtils::RJust("test", 6, '_'), "__test");
+   ASSERT_EQ(StringUtils::RJust("", 5, '+'), "+++++");
+   ASSERT_EQ(StringUtils::RJust("test", 2, '*'), "test");
 }
+
 
 TEST(StringUtilsTest, Replace) {
-    EXPECT_EQ(StringUtils::Replace("hello world", "world", "there"), "hello there");
-    EXPECT_EQ(StringUtils::Replace("hello world world", "world", "there"), "hello there there");
-    EXPECT_EQ(StringUtils::Replace("hello", "z", "x"), "hello");
+   ASSERT_EQ(StringUtils::Replace("test string", "string", "example"), "test example");
+   ASSERT_EQ(StringUtils::Replace("test string string", "string", "example"), "test example example");
+   ASSERT_EQ(StringUtils::Replace("test", "x", "y"), "test");
 }
+
 
 TEST(StringUtilsTest, Split) {
-    std::vector<std::string> expected1 = {"hello", "world"};
-    EXPECT_EQ(StringUtils::Split("hello world"), expected1);
+   std::vector<std::string> expected1 = {"test", "string"};
+   ASSERT_EQ(StringUtils::Split("test string"), expected1);
 
-    std::vector<std::string> expected2 = {"this", "is", "a", "test"};
-    EXPECT_EQ(StringUtils::Split("this is a test"), expected2);
 
-    std::vector<std::string> expected3 = {"hello"};
-    EXPECT_EQ(StringUtils::Split("hello"), expected3);
+   std::vector<std::string> expected2 = {"this", "is", "a", "test"};
+   ASSERT_EQ(StringUtils::Split("this is a test"), expected2);
+
+
+   std::vector<std::string> expected3 = {"test"};
+   ASSERT_EQ(StringUtils::Split("test"), expected3);
 }
+
 
 TEST(StringUtilsTest, Join) {
-    std::vector<std::string> words = {"hello", "world"};
-    EXPECT_EQ(StringUtils::Join(" ", words), "hello world");
-    EXPECT_EQ(StringUtils::Join("-", words), "hello-world");
-    EXPECT_EQ(StringUtils::Join("", words), "helloworld");
+   std::vector<std::string> words = {"test", "string"};
+   ASSERT_EQ(StringUtils::Join(" ", words), "test string");
+   ASSERT_EQ(StringUtils::Join("-", words), "test-string");
+   ASSERT_EQ(StringUtils::Join("", words), "teststring");
 }
+
 
 TEST(StringUtilsTest, ExpandTabs) {
-    EXPECT_EQ(StringUtils::ExpandTabs("hello\tworld", 4), "hello    world");
-    EXPECT_EQ(StringUtils::ExpandTabs("\t", 4), "    ");
-    EXPECT_EQ(StringUtils::ExpandTabs("hello\t", 8), "hello   ");
+   ASSERT_EQ(StringUtils::ExpandTabs("test\tstring", 4), "test    string");
+   ASSERT_EQ(StringUtils::ExpandTabs("\t", 4), "    ");
+   ASSERT_EQ(StringUtils::ExpandTabs("test\t", 8), "test    ");
 }
 
+
 TEST(StringUtilsTest, EditDistance) {
-    EXPECT_EQ(StringUtils::EditDistance("kitten", "sitting"), 3);
-    EXPECT_EQ(StringUtils::EditDistance("flaw", "lawn"), 2);
-    EXPECT_EQ(StringUtils::EditDistance("same", "same"), 0);
-    EXPECT_EQ(StringUtils::EditDistance("hello", "HELLO", true), 0);
+   ASSERT_EQ(StringUtils::EditDistance("example", "samples"), 3);
+   ASSERT_EQ(StringUtils::EditDistance("test", "text"), 1);
+   ASSERT_EQ(StringUtils::EditDistance("same", "same"), 0);
+   ASSERT_EQ(StringUtils::EditDistance("test", "TEST", true), 0);
 }
